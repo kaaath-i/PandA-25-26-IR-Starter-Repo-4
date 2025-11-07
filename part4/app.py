@@ -108,6 +108,7 @@ def combine_results(result1, result2):
         if line_entry2["line_no"] not in seen_line_nos:
             total_line_matches.append(line_entry2)
             seen_line_nos.add(line_entry2["line_no"])
+    total_line_matches.sort(key=lambda entry: entry["line_no"])
     result1["line_matches"] = total_line_matches
 
     total_matches = result1["matches"] + result2["matches"]
@@ -158,13 +159,13 @@ def main() -> None:
 
             # ToDo 2 - Part 1 - Copy the logic from the highlight feature and adapt it for the search-mode
 
-            if raw.startswith(":mode"):
+            if raw.startswith(":search-mode"):
                 parts = raw.split()
                 if len(parts) == 2 and parts[1].upper() in ("AND", "OR"):
                     search_mode = parts[1].upper()
-                    print("Search Mode", search_mode)
+                    print("Search mode set to", search_mode)
                 else:
-                    print("Usage: :mode AND|OR")
+                    print("Usage: :search-mode AND|OR")
                 continue
 
 
